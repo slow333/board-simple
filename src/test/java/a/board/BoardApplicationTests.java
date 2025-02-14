@@ -1,6 +1,7 @@
 package a.board;
 
 import a.board.question.QRepository;
+import a.board.question.QService;
 import a.board.question.Question;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ class BoardApplicationTests {
 
 	@Autowired
 	private QRepository qRepository;
+
+	@Autowired
+	private QService qService;
 
 	@Test
 	void contextLoads() {
@@ -38,6 +42,13 @@ class BoardApplicationTests {
 //		System.out.println(question.getContent()+","+question.getCreateDate());
 //		this.qRepository.delete(question);
 //		assertEquals(2, this.qRepository.count());
+//		for (int i = 104; i <= 220; i++) {
+//			Question q= new Question();
+//			q.setSubject(i+"번째 질문 주제");
+//			q.setContent(i+"번째 내용 입니다.");
+//			q.setCreateDate(LocalDateTime.now());
+//			this.qService.create(q);
+//		}
 	}
 
 }

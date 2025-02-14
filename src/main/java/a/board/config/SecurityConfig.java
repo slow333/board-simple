@@ -21,7 +21,9 @@ public class SecurityConfig{
       .csrf(AbstractHttpConfigurer::disable)
       .authorizeHttpRequests(request -> request
           .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-          .requestMatchers(new AntPathRequestMatcher("/board/**")).permitAll())
+          .requestMatchers(new AntPathRequestMatcher("/question/**")).permitAll()
+          .requestMatchers(new AntPathRequestMatcher("/board/**")).permitAll()
+          .requestMatchers(new AntPathRequestMatcher("/error/**")).permitAll())
       .headers(header -> header
           .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
     return http.build();
