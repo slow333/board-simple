@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<div layout:fragment="content" class="container my-3">
+  <h1>Question List</h1>
+  <table class="table">
+    <thead class="table-dark" >
+      <tr class="text-center">
+        <th>No</th>
+        <th>제목</th>
+        <th>내용</th>
+        <th>생성일</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="question, loop : ${questions}" >
+        <td>[[${loop.count}]]</td>
+        <td><a th:href="@{|/question/detail/${question.id}|}">[[${question.subject}]]</a></td>
+        <td>[[${question.content}]] ;
+          <span class="badge bg-light text-dark p-2 text-start">
+            [[${question.answerList.getSize()}]]
+          </span>
+        </td>
+        <td>[[${#temporals.format(question.createDate, "yyyy-MM-dd HH:mm")}]]</td>
+      </tr>
+    </tbody>
+  </table>
+  <a th:href="@{|/question/create|}" class="btn btn-primary">질문 등록</a>
+</div>
+</body>
+</html>

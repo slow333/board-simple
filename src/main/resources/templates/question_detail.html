@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<div layout:fragment="content" class="container my-3">
+  <h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
+  <div class="card" style="width: 100%;">
+    <div class="card-body">
+      <div class="card-text" style="white-space: pre-line;" th:text="${question.content}"></div>
+      <div class="d-flex justify-content-end">
+        <div class="badge bg-light text-dark p-2 text-start">
+          [[${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}]]
+        </div>
+      </div>
+    </div>
+  </div>
+    <h5 class="border-bottom my-3 py-2"
+        th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
+  <div class="card my-3" th:each="answer, list : ${question.getAnswerList()}">
+    <div class="card-body">
+      <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
+      <div class="d-flex justify-content-end">
+        <div class="badge bg-light text-dark p-2 text-start">
+          [[${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}]]
+        </div>
+      </div>
+    </div>
+  </div>
+    <form class="form-inline" th:action="@{|/answer/create/${question.id}|}" method="post">
+      <div class="form-group">
+        <label for="content" class="my-3 h4">답변등록</label>
+        <textarea class="form-control" id="content" name="content" aria-describedby="answer"
+                  rows="3"
+                  placeholder="답변해주세요"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary my-3">답변 등록</button>
+    </form>
+</div>
+</body>
+</html>
