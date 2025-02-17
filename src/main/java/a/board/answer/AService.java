@@ -2,10 +2,12 @@ package a.board.answer;
 
 import a.board.question.DataNotFoundException;
 import a.board.question.Question;
+import a.board.user.SiteUser;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -28,11 +30,28 @@ public class AService {
     this.aRepository.save(answer);
   }
 
-  public void create(Question question, String content) {
+  public Answer create(Question question, String content, SiteUser author) {
     Answer answer = new Answer();
     answer.setQuestion(question);
     answer.setContent(content);
+    answer.setAuthor(author);
     answer.setCreateDate(LocalDateTime.now());
     this.aRepository.save(answer);
+    return answer;
+  }
+
+  public void modify(Answer answer, String content) {
+    answer.setContent(content);
+    answer.setModifyDate(LocalDateTime.now());
+    this.aRepository.save(answer);
+  }
+
+  public void delete(Answer answer) {
+    aRepository.delete(answer);
+  }
+
+  public void vote(Answer answer, SiteUser siteUser) {
+    answer.getVoter().add(siteUser);
+    aRepository.save(answer);
   }
 }
